@@ -1,16 +1,17 @@
 #include "binary_trees.h"
 /**
- * binary_tree_postorder - traverses tree postorderly
+ * binary_tree_depth - provides teh depth of tree
  * @tree: pointer to the root node of the tree to traverse
  * @funct: pointer to a function that calls each node
- * return: none
+ * return: 0 if parent of node null
  */
 
 size_t binary_tree_depth(const binary_tree_t *tree)
 {
     size_t h1;
 
-    if (!tree)
+
+	if (!tree->parent)
     {
         return (0);
     }
