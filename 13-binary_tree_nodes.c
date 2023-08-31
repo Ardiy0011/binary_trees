@@ -32,4 +32,5 @@ size_t binary_tree_nodes(const binary_tree_t *tree)
     traverse_right = binary_tree_nodes(tree->right);
     return (traverse_left + traverse_right);
     }
+    return (0);
 }
