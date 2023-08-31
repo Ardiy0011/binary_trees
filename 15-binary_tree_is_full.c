@@ -11,8 +11,9 @@ int binary_tree_is_full(const binary_tree_t *tree)
 
     int scenario1 = tree->left && tree->right;
     int scenario2 = !tree->left && !tree->right;
+    int scenario3 = !tree->left || !tree->right;
 
-    if (!tree)
+    if (scenario3)
     {
         return (0);
     }
