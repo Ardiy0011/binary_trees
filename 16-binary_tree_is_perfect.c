@@ -1,26 +1,21 @@
 #include "binary_trees.h"
 
 /**
- * inorder - Inorder traversal of binary tree
+ * binary_tree_inorder - Inorder traversal of binary tree
  * @tree: Pointer to binary tree node
- * @leaves: Counts leaf nodes
- * @depth: Depth of tree
- * @height: Binary tree height
+ * @func: Pointer to a function to call on each node's value
  * Return: Void
  */
-void inorder(const binary_tree_t *tree, int *leaves, int depth, int *height)
+void binary_tree_inorder(const binary_tree_t *tree, void (*func)(int))
 {
-    if (!tree)
+    if (!tree || !func)
+    {
         return;
+    }
 
-    if (*height < depth)
-        *height = depth;
-
-    inorder(tree->left, leaves, depth + 1, height);
-
-    *leaves += (!tree->left && !tree->right);
-
-    inorder(tree->right, leaves, depth + 1, height);
+    binary_tree_inorder(tree->left, func);
+    func(tree->n);
+    binary_tree_inorder(tree->right, func);
 }
 
 /**
@@ -31,14 +26,26 @@ void inorder(const binary_tree_t *tree, int *leaves, int depth, int *height)
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
     if (!tree)
-        return 0;
+        return (0);
 
+    int height = binary_tree_height(tree);
     int leaves = 0;
-    int height = 0;
 
-    inorder(tree, &leaves, 0, &height);
+    binary_tree_inorder(tree, count_leaves, &leaves);
 
-    int nodes = (1 << height); /* 2^height */
+    int nodes = (1 << height);
 
     return (nodes == leaves);
+}
+
+/**
+ * count_leaves - to count leaves in a binary tree
+ * @n: Node value
+ * @leaves: Pointer to the count of leaf nodes
+ * Return: Void
+ */
+void count_leaves(int n, int *leaves)
+{
+    (void)n;
+    (*leaves)++;
 }
