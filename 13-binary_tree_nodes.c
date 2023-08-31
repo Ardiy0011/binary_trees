@@ -20,18 +20,16 @@ size_t binary_tree_nodes(const binary_tree_t *tree)
         return (0);
     }
 
-    if (scenario1 || scenario2)
-    {
-        return (1);
-    }
-
     if (scenario3)
     {
         return (1);
     }
 
+    if (scenario1 || scenario2)
+    {
+
     traverse_left = binary_tree_nodes(tree->left);
     traverse_right = binary_tree_nodes(tree->right);
-
     return (traverse_left + traverse_right);
+    }
 }
