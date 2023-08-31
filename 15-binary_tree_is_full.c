@@ -35,4 +35,5 @@ int binary_tree_is_full(const binary_tree_t *tree)
         int traverse_rgt = binary_tree_is_full(tree->right);
         return (traverse_lft && traverse_rgt);
     }
+    return (0);
 }
