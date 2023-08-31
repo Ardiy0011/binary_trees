@@ -9,11 +9,12 @@
 int binary_tree_is_full(const binary_tree_t *tree)
 {
 
+    int scenario1 = tree->left && tree->right;
     int scenario2 = !tree->left && !tree->right;
     int scenario3 = !tree->left || !tree->right;
 
 
-    if (tree)
+    if (tree == NULL)
     {
         return (1);
     }
@@ -28,8 +29,10 @@ int binary_tree_is_full(const binary_tree_t *tree)
         return (1);
     }
 
-    int traverse_lft = binary_tree_is_full(tree->left);
-    int traverse_rgt = binary_tree_is_full(tree->right);
-    return (traverse_lft && traverse_rgt);
-
+    if (scenario1)
+    {
+        int traverse_lft = binary_tree_is_full(tree->left);
+        int traverse_rgt = binary_tree_is_full(tree->right);
+        return (traverse_lft && traverse_rgt);
+    }
 }
