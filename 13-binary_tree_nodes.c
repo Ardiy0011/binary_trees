@@ -12,6 +12,7 @@ size_t binary_tree_nodes(const binary_tree_t *tree)
     size_t traverse_right;
     size_t scenario1 = (tree->left && !tree->right);
     size_t scenario2 = (!tree->left && tree->right);
+    size_t scenario3 = (!tree->left && !tree->right);
 
 
     if (!tree)
@@ -20,6 +21,11 @@ size_t binary_tree_nodes(const binary_tree_t *tree)
     }
 
     if (scenario1 || scenario2)
+    {
+        return (1);
+    }
+
+    if (scenario3)
     {
         return (1);
     }
