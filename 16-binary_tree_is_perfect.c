@@ -4,7 +4,7 @@
  * binary_tree_perhelp - Inorder traversal of binary tree
  * @tree: Pointer to binary tree node
  * @func: Pointer to a function to call on each node's value
- * Return: Void
+ * Return: none
  */
 void binary_tree_perhelp(const binary_tree_t *tree, int *leaves)
 {
@@ -23,7 +23,6 @@ void binary_tree_perhelp(const binary_tree_t *tree, int *leaves)
     binary_tree_perhelp(tree->right, leaves);
 }
 
-#include "binary_trees.h"
 /**
  * binary_tree_postorder - traverses tree postorderly
  * @tree: pointer to the root node of the tree to traverse
@@ -57,7 +56,6 @@ size_t binary_tree_height(const binary_tree_t *tree)
     }
 
 }
-
 
 /**
  * binary_tree_is_perfect - Checks if binary tree is perfect
