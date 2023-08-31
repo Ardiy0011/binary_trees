@@ -12,13 +12,14 @@ size_t binary_tree_nodes(const binary_tree_t *tree)
     size_t traverse_right;
     size_t scenatio1 = (tree->left && !tree->right);
     size_t scenatio2 = (!tree->left && tree->right);
+    size_t scenatio3 = (tree->left && tree->right);
 
     if (!tree)
     {
         return (0);
     }
 
-    if (scenatio1 || scenatio2)
+    if (scenatio1 || scenatio2 && scenatio3)
     {
         return (1);
     }
