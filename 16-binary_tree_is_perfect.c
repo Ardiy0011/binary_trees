@@ -1,38 +1,44 @@
 #include "binary_trees.h"
 
 /**
+ * inorder - Inorder traversal of binary tree
+ * @tree: Pointer to binary tree node
+ * @leaves: Counts leaf nodes
+ * @depth: Depth of tree
+ * @height: Binary tree height
+ * Return: Void
+ */
+void inorder(const binary_tree_t *tree, int *leaves, int depth, int *height)
+{
+    if (!tree)
+        return;
+
+    if (*height < depth)
+        *height = depth;
+
+    inorder(tree->left, leaves, depth + 1, height);
+
+    *leaves += (!tree->left && !tree->right);
+
+    inorder(tree->right, leaves, depth + 1, height);
+}
+
+/**
  * binary_tree_is_perfect - Checks if binary tree is perfect
  * @tree: Pointer to root of binary tree
  * Return: True (1), False (0)
  */
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
-    if (tree == NULL)
+    if (!tree)
         return 0;
 
+    int leaves = 0;
     int height = 0;
-    const binary_tree_t *current = tree;
 
-    while (current->left != NULL) {
-        height++;
-        current = current->left;
-    }
+    inorder(tree, &leaves, 0, &height);
 
-    return is_perfect_recursive(tree, height, 0);
-}
+    int nodes = (1 << height); /* 2^height */
 
-/**
- * is_perfect_recursive - Checks if binary tree is perfect recursively
- * @tree: Pointer to root of binary tree
- * @height: Height of the perfect tree
- * @level: Current level being checked
- * Return: True (1), False (0)
- */
-int is_perfect_recursive(const binary_tree_t *tree, int height, int level)
-{
-    if (tree == NULL)
-        return (height == level);
-
-    return (is_perfect_recursive(tree->left, height, level + 1) &&
-            is_perfect_recursive(tree->right, height, level + 1));
+    return (nodes == leaves);
 }
