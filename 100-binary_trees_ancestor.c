@@ -5,7 +5,8 @@
  * @second: Pointer to the second node
  * Return: Pointer to the lowest common ancestor node
  */
-binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tree_t *second)
+binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
+const binary_tree_t *second)
 {
 	const binary_tree_t *ancestor = first;
 	const binary_tree_t *search = second;
