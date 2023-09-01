@@ -1,74 +1,100 @@
 #include "binary_trees.h"
-/**
- * binary_tree_perhelp - Inorder traversal of binary tree
- * @tree: Pointer to binary tree node
- * @leaves: Pointer to a function to call on each node's value
- * Return: none
- */
-void binary_tree_perhelp(const binary_tree_t *tree, int *leaves)
-{
-	if (!tree)
-	{
-	return;
-	}
-
-	binary_tree_perhelp(tree->left, leaves);
-
-	if (!tree->left && !tree->right)
-	{
-	(*leaves)++;
-	}
-
-	binary_tree_perhelp(tree->right, leaves);
-}
 
 /**
- * binary_tree_height - return height of tree
- * @tree: pointer to the root node of the tree to traverse
- * Return: none
- */
-size_t binary_tree_height(const binary_tree_t *tree)
-{
-	size_t h1;
-	size_t h2;
-
-	if (!tree)
-	{
-	return (0);
-	}
-
-	if (!tree->right && !tree->left)
-		return (0);
-
-	h1 = binary_tree_height(tree->left);
-	h2 = binary_tree_height(tree->right);
-
-	if (h1 > h2)
-	{
-	return (h1 + 1);
-	}
-	else
-	{
-	return (h2 + 1);
-	}
-}
-
-/**
- * binary_tree_is_perfect - Checks if binary tree is perfect
- * @tree: Pointer to root of binary tree
- * Return: True (1), False (0)
- */
+ * binary_tree_is_perfect - Determines whether a
+ * binary tree is perfect.
+ *
+ * @tree: A pointer to the root node or subtree
+ * in the binary tree.
+ *
+ * Return: The value 1 when @tree is a tree with
+ * all nodes having exactly 2 or no children
+ * otherwise 0.
+ *
+ **/
 int binary_tree_is_perfect(const binary_tree_t *tree)
 {
+	const binary_tree_t *subtree = tree;
+	int is_left_subtree_perfect = 0,
+	    is_right_subtree_perfect = 0;
+
 	if (!tree)
+	{
 		return (0);
+	}
 
-	int height = binary_tree_height(tree);
-	int leaves = 0;
+	if (binary_subtree_balance(tree) != 0)
+	{
+		return (0);
+	}
 
-	binary_tree_perhelp(tree, &leaves);
+	if (!subtree->left && !subtree->right)
+	{
+		return (1);
+	}
 
-	int nodes = (1 << height);
+	if (subtree->left && subtree->right)
+	{
+		is_left_subtree_perfect =
+			binary_tree_is_perfect(subtree->left);
+		is_right_subtree_perfect =
+			binary_tree_is_perfect(subtree->right);
 
-	return (nodes == leaves);
+		return (is_left_subtree_perfect &&
+			is_right_subtree_perfect);
+	}
+
+	return (0);
+
+}
+
+/**
+ * binary_subtree_balance - Returns the balance
+ * factor of a binary tree.
+ *
+ * @subtree: A pointer to the root node or subtree
+ * in the binary tree.
+ *
+ * Return: The balance factor of the tree.
+ *
+ **/
+int binary_subtree_balance(const binary_tree_t *subtree)
+{
+	if (!subtree)
+	{
+		return (0);
+	}
+
+	return (binary_subtree_height(subtree->left) -
+		binary_subtree_height(subtree->right));
+}
+
+/**
+ * binary_subtree_height - Returns the height
+ * of subtree for @subtree. @subtree could
+ * also be the root node in the binary tree.
+ *
+ * @tree: A pointer to the subtree whose height
+ * needs to be determined.
+ *
+ * Return: The height of the subtree.
+ *
+ **/
+int binary_subtree_height(const binary_tree_t *tree)
+{
+	const binary_tree_t *subtree = tree;
+	size_t left_edges = 0, right_edges = 0;
+
+	if (!tree || (!subtree->left && !subtree->right))
+	{
+		return (0);
+	}
+
+	left_edges = (1 + binary_subtree_height
+			(subtree->left));
+	right_edges = (1 + binary_subtree_height
+			(subtree->right));
+
+	return (left_edges > right_edges ? left_edges :
+			right_edges);
 }

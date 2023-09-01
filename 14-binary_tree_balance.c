@@ -1,47 +1,51 @@
 #include "binary_trees.h"
+
 /**
- * binary_tree_height - provides each tree childs height
- * @tree: pointer to the root node of the tree to traverse
- * Return: none
- */
-size_t binary_tree_height(const binary_tree_t *tree)
+ * binary_tree_balance - Returns the balance
+ * factor of a binary tree.
+ *
+ * @tree: A pointer to the root node or subtree
+ * in the binary tree.
+ *
+ * Return: The balance factor of the tree.
+ *
+ **/
+int binary_tree_balance(const binary_tree_t *tree)
 {
-	size_t h1;
-	size_t h2;
+	const binary_tree_t *subtree = tree;
 
 	if (!tree)
 	{
-	return (-1);
-	}
-
-	if (!tree->right && !tree->left)
 		return (0);
-
-	h1 = binary_tree_height(tree->left);
-	h2 = binary_tree_height(tree->right);
-
-	if (h1 > h2)
-	{
-	return (h1 + 1);
 	}
-	else
-	{
-	return (h2 + 1);
-	}
+
+	return (binary_subtree_height(subtree->left) -
+		binary_subtree_height(subtree->right));
 }
 
 /**
- * binary_tree_balance - measures the balance factor of tree
- * @tree: pointer to the root node of the tree to measure
- * Return: balance factor of the tree, or 0 if tree is NULL
- */
-int binary_tree_balance(const binary_tree_t *tree)
+ * binary_subtree_height - Returns the height
+ * of subtree for @subtree. @subtree could
+ * also be the root node in the binary tree.
+ *
+ * @subtree: A pointer to the subtree whose height
+ * subtree needs to be determined.
+ *
+ * Return: The height of the subtree.
+ *
+ **/
+int binary_subtree_height(const binary_tree_t *subtree)
 {
-	if (!tree)
-	return (0);
+	int left_subtree_height = 0, right_subtree_height = 0;
 
-	int h1 = binary_tree_height(tree->left);
-	int h2 = binary_tree_height(tree->right);
+	if (!subtree)
+	{
+		return (-1);
+	}
 
-	return (h1 - h2);
+	left_subtree_height = (1 + binary_subtree_height(subtree->left));
+	right_subtree_height = (1 + binary_subtree_height(subtree->right));
+
+	return (left_subtree_height > right_subtree_height ?
+		left_subtree_height : right_subtree_height);
 }
