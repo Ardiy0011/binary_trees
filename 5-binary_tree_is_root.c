@@ -4,13 +4,12 @@
  * @node: pointer to the node struct
  * Return: 1 if root
  */
-
 int binary_tree_is_root(const binary_tree_t *node)
 {
-    if (!node)
-    {
-        return (0);
-    }
+	if (!node)
+	{
+	return (0);
+	}
 
-    return (node->parent == NULL);
+	return (node->parent == NULL);
 }
