@@ -2,7 +2,7 @@
 /**
  * binary_tree_height - provides each tree childs height
  * @tree: pointer to the root node of the tree to traverse
- * return: none
+ * Return: none
  */
 
 size_t binary_tree_height(const binary_tree_t *tree)

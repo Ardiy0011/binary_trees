@@ -2,7 +2,7 @@
 /**
  * binary_tree_is_root - checks if node is a root
  * @node: pointer to the node struct
- * return: 1 if root
+ * Return: 1 if root
  */
 
 int binary_tree_is_root(const binary_tree_t *node)
