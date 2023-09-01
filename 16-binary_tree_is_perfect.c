@@ -23,7 +23,7 @@ void binary_tree_perhelp(const binary_tree_t *tree, int *leaves)
 }
 
 /**
- * binary_tree_postorder - traverses tree postorderly
+ * binary_tree_height - return height of tree
  * @tree: pointer to the root node of the tree to traverse
  * Return: none
  */
